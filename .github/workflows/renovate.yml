@@ -2,6 +2,9 @@ name: Renovate
 
 on: workflow_dispatch
 
+env:
+  RENOVATE_TOKEN: ${{ secrets.RENOVATE_TOKEN }}
+
 jobs:
   renovate:
     runs-on: ubuntu-latest
