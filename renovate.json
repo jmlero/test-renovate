@@ -33,8 +33,5 @@
       ]
     }
   ],
-  "schedule": [
-    "after 4:30am on Monday"
-  ],
   "rebaseWhen": "never"
 }
