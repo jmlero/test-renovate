@@ -1,37 +1,24 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ],
-  "customManagers": [
+  "extends": ["config:base"],
+  "terraform": {
+    "enabled": true
+  },
+  "packageRules": [
     {
-      "customType": "regex",
-      "fileMatch": [
-        ".*tf$"
-      ],
-      "matchStrings": [
-         "#\\s*renovate:\\s*datasource=(?<datasource>.*?) depName=(?<depName>.*?)(\\s+versioning=(?<versioning>.*?))?(\\s+extractVersion=(?<extractVersion>.*?))?\\s.*?\\n\\s*default\\s*=\\s*\"(?<currentValue>.*)\""
-      ]
-    }
-  ],
-  "regexManagers": [
-    {
-      "fileMatch": [
-        "(^|/)Dockerfile$",
-        "(^|/)Dockerfile\\.[^/]*$"
-      ],
-      "matchStrings": [
-        "#\\srenovate:\\sdatasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?( extractVersion=(?<extractVersion>.*?))?\\s(ENV|ARG) .*?_VERSION=(?<currentValue>.*)\\s"
-      ]
+      "matchManagers": ["terraform"],
+      "enabled": true,
+      "groupName": "terraform-modules"
     },
     {
-      "fileMatch": [
-        ".*tf$"
-      ],
-      "matchStrings": [
-        "#\\s*renovate:\\s*datasource=(?<datasource>.*?) depName=(?<depName>.*?)(\\s+versioning=(?<versioning>.*?))?(\\s+extractVersion=(?<extractVersion>.*?))?\\s.*=.*?\"(?<currentValue>.*)\""
-      ]
+      "matchPackageNames": ["terraform", "hashicorp/terraform"],
+      "groupName": "terraform-core"
+    },
+    {
+      "matchDatasources": ["github-tags"],
+      "matchManagers": ["terraform"],
+      "groupName": "terraform-providers"
     }
   ],
-  "rebaseWhen": "never"
+  "commitMessagePrefix": "chore(deps):"
 }
