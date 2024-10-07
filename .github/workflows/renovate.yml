@@ -17,4 +17,5 @@ jobs:
           RENOVATE_TOKEN: ${{ secrets.RENOVATE_TOKEN }}
         with:
           token: ${{ secrets.RENOVATE_TOKEN }}
+          extra_args: '--repo=jmlero/test-renovate'
           
